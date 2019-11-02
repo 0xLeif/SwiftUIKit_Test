@@ -36,9 +36,8 @@ class ViewController: UIViewController {
                     [
                         Label("Are you new?"),
                         Spacer(),
-                        UISwitch().configure {
-                            $0.isOn = true
-                            $0.onTintColor = .systemPurple
+                        Switch(isOn: true) {
+                            print("Toogle is \($0)")
                         }
                     ]
                 }
