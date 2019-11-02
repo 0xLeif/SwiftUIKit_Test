@@ -65,11 +65,11 @@
 				0080EAD72369F83B008B2238 /* AppDelegate.swift */,
 				0080EAD92369F83B008B2238 /* SceneDelegate.swift */,
 				0080EADB2369F83B008B2238 /* ViewController.swift */,
+				29ADFE99236E0FED00760167 /* TestViewController.swift */,
 				0080EADD2369F83B008B2238 /* Main.storyboard */,
 				0080EAE02369F83E008B2238 /* Assets.xcassets */,
 				0080EAE22369F83E008B2238 /* LaunchScreen.storyboard */,
 				0080EAE52369F83E008B2238 /* Info.plist */,
-				29ADFE99236E0FED00760167 /* TestViewController.swift */,
 			);
 			path = UI_Test;
 			sourceTree = "<group>";

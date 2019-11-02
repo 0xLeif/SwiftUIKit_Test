@@ -10,15 +10,28 @@ import UIKit
 import SwiftUIKit
 
 class TestViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.embed {
-            VStack {
-                [
-                    Label("Hello World")
-                ]
+            UIScrollView().embed {
+                VStack(distribution: .fillEqually) {
+                    [
+                        Label.title1("Hello World"),
+                        Label.title2("Hello World"),
+                        Label.title3("Hello World"),
+                        Label.headline("Hello World"),
+                        Label.subheadline("Hello World"),
+                        Label.body("Hello World"),
+                        Label.callout("Hello World"),
+                        Label.caption1("Hello World"),
+                        Label.caption2("Hello World")
+                        
+                    ]
+                }
+                .frame(height: 1000)
+                .padding(16)
             }
         }
         .configure {

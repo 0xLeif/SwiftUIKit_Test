@@ -16,10 +16,11 @@ class ViewController: UIViewController {
                 VStack {
                     [
                         Label("Hello World"),
-                        View(backgroundColor: .black).frame(height: 1)
+                        Divider(.horizontal)
                     ]
                 },
                 Spacer(),
+                Divider(.horizontal),
                 Label("Testing VStack"),
                 
                 Button("Hello Tap Me!", titleColor: .systemBlue, backgroundColor: .systemYellow) {
@@ -32,9 +33,10 @@ class ViewController: UIViewController {
                 }
                 .accessibility(label: "Tap this button!"),
                 
-                HStack {
+                HStack(withSpacing: 8) {
                     [
                         Label("Are you new?"),
+                        Divider(.vertical),
                         Spacer(),
                         Switch(isOn: true) {
                             print("Toogle is \($0)")
