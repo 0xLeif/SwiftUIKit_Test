@@ -46,17 +46,15 @@ class ViewController: UIViewController {
             ]
         }
         .frame(height: 200)
-        .padding(16)
     }
     
     var mainView: UIView {
         VStack {
             [
                 View(backgroundColor: .lightGray) { self.headerView }
-                    .padding()
                     .layer { $0.cornerRadius = 16 },
                 Spacer(height: 4),
-                HStack { [Label("Body"), Spacer(), Label("Details")] },
+                HStack { [Label("Body"), Spacer(), Label.caption1("Details")] },
                 Spacer(),
                 
                 Button("Show", titleColor: .magenta) {
@@ -85,15 +83,13 @@ class ViewController: UIViewController {
                                 Spacer(),
                                 Label("45")
                             ]
-                        }
+                        }.padding()
                     ]
                 }
                 .didSelectHandler({ (view) in
                     print(view)
                 })
-                .configureCell { (cell)  in
-                    cell.accessoryType = .checkmark
-                }
+                .frame(height: 100)
             ]
         }
     }
