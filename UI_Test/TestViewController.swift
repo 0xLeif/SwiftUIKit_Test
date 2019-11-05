@@ -15,23 +15,28 @@ class TestViewController: UIViewController {
         super.viewDidLoad()
         
         view.embed {
-            UIScrollView().embed {
+            ScrollView {
                 VStack(distribution: .fillEqually) {
                     [
                         Label.title1("Hello World"),
                         Label.title2("Hello World"),
                         Label.title3("Hello World"),
                         Label.headline("Hello World"),
-                        Label.subheadline("Hello World"),
+                        Label.subheadline("Hello Worldf"),
                         Label.body("Hello World"),
                         Label.callout("Hello World"),
                         Label.caption1("Hello World"),
-                        Label.caption2("Hello World")
+                        Label.caption2("Hello World"),
+                        Slider(value: 0.5, from: 0, to: 1) { value in
+                            print("Value: \(value)")
+                        }
                         
                     ]
                 }
                 .frame(height: 1000)
                 .padding(16)
+                    
+                .debug()
             }
         }
         .configure {
