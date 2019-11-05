@@ -5,27 +5,43 @@
 //  Created by CRi on 10/30/19.
 //  Copyright © 2019 ol. All rights reserved.
 //
-
 import UIKit
 import SwiftUIKit
 
 class ViewController: UIViewController {
     
     var headerView: UIView {
-        VStack {
+        VStack(withSpacing: 16) {
             [
-                Label("Hello World"),
+                VStack {
+                    [
+                        Label("Hello World"),
+                        Divider(.horizontal)
+                    ]
+                },
+                Spacer(),
+                Divider(.horizontal),
                 Label("Testing VStack"),
+                
                 Button("Hello Tap Me!", titleColor: .systemBlue, backgroundColor: .systemYellow) {
                     print("Hello You Tapped me!")
-                }.layer {
+                }
+                .layer {
                     $0.borderWidth = 3
                     $0.borderColor = UIColor.systemBlue.cgColor
                     $0.cornerRadius = 6
-                }.accessibility(label: "Tap this button!"),
-                UISwitch().configure {
-                    $0.isOn = true
-                    $0.onTintColor = .systemPurple
+                }
+                .accessibility(label: "Tap this button!"),
+                
+                HStack(withSpacing: 8) {
+                    [
+                        Label("Are you new?"),
+                        Divider(.vertical),
+                        Spacer(),
+                        Switch(isOn: true) {
+                            print("Toogle is \($0)")
+                        }
+                    ]
                 }
             ]
         }
@@ -115,19 +131,8 @@ class ViewController: UIViewController {
         
         view.embed {
             SafeAreaView {
-                VStack {
-                    [
-                        View(backgroundColor: .lightGray)
-                            .embed { headerView }
-                            .padding()
-                            .layer { $0.cornerRadius = 16 },
-                        Spacer(height: 4),
-                        HStack { [Label("Body"), Spacer(), Label("Details")] },
-                        Spacer()
-                    ]
-                }
+                mainView
             }
         }
-        
     }
 }
