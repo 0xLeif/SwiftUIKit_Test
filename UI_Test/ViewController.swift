@@ -8,6 +8,48 @@
 import UIKit
 import SwiftUIKit
 
+
+import WebKit
+
+@available(iOS 9.0, *)
+public class WebView: WKWebView {
+    public init() {
+        super.init(frame: .zero, configuration: WKWebViewConfiguration())
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+public extension WebView {
+    func launch(url: URL) -> Self {
+        load(URLRequest(url: url,
+                        cachePolicy: .useProtocolCachePolicy,
+                        timeoutInterval: 10))
+        
+        return self
+    }
+    
+    func launch(html: String) -> Self {
+        loadHTMLString(html, baseURL: nil)
+        
+        return self
+    }
+    
+    func launch(fileURL url: URL, allowingReadAccessTo: URL) -> Self {
+        loadFileURL(url, allowingReadAccessTo: allowingReadAccessTo)
+        
+        return self
+    }
+    
+    func launch(data: Data, mimeType: String, characterEncodingName: String, baseURL: URL) -> Self {
+        load(data, mimeType: mimeType, characterEncodingName: characterEncodingName, baseURL: baseURL)
+        
+        return self
+    }
+}
+
 class ViewController: UIViewController {
     
     var headerView: UIView {
@@ -131,7 +173,17 @@ class ViewController: UIViewController {
         
         view.embed {
             SafeAreaView {
-                mainView
+                Table(defaultCellHeight: Float(UITableView.automaticDimension)) {
+                    [
+                        WebView()
+                            .launch(html: """
+<meta name='viewport' content='initial-scale=1.0'/>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ever press Cmd-A in a native app and every text field in the entire window gets highlighted? Nope, me neither.<br><br>Details matter. Native platforms FTW. <a href="https://t.co/7NmIvXpVnJ">pic.twitter.com/7NmIvXpVnJ</a></p>&mdash; Daniel Jalkut (@danielpunkass) <a href="https://twitter.com/danielpunkass/status/1192686379379122176?ref_src=twsrc%5Etfw">November 8, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+""")
+                    ]
+                    
+                }
+                //                mainView
             }
         }
     }
