@@ -14,6 +14,7 @@
 		0080EAE12369F83E008B2238 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0080EAE02369F83E008B2238 /* Assets.xcassets */; };
 		0080EAE42369F83E008B2238 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0080EAE22369F83E008B2238 /* LaunchScreen.storyboard */; };
 		29313856237117400046AAE0 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29313855237117400046AAE0 /* TestViewController.swift */; };
+		29666F9A239887AD0094C21A /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29666F99239887AD0094C21A /* MessagesViewController.swift */; };
 		29C0CBF7236A5F5800FC35C5 /* SwiftUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 29C0CBF6236A5F5800FC35C5 /* SwiftUIKit */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		0080EAE32369F83E008B2238 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0080EAE52369F83E008B2238 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29313855237117400046AAE0 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		29666F99239887AD0094C21A /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				0080EAD92369F83B008B2238 /* SceneDelegate.swift */,
 				0080EADB2369F83B008B2238 /* ViewController.swift */,
 				29313855237117400046AAE0 /* TestViewController.swift */,
+				29666F99239887AD0094C21A /* MessagesViewController.swift */,
 				0080EADD2369F83B008B2238 /* Main.storyboard */,
 				0080EAE02369F83E008B2238 /* Assets.xcassets */,
 				0080EAE22369F83E008B2238 /* LaunchScreen.storyboard */,
@@ -149,6 +152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29666F9A239887AD0094C21A /* MessagesViewController.swift in Sources */,
 				0080EADC2369F83B008B2238 /* ViewController.swift in Sources */,
 				0080EAD82369F83B008B2238 /* AppDelegate.swift in Sources */,
 				29313856237117400046AAE0 /* TestViewController.swift in Sources */,
@@ -356,8 +360,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zmeriksen/SwiftUIKit.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.5.0;
+				branch = "features/AlertsAndMore❗️";
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
