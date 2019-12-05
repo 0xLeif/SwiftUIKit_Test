@@ -111,7 +111,8 @@ class ViewController: UIViewController {
                         }
                         .inputHandler { (value) in
                             print("New Value!: \(value)")
-                        }
+                        },
+                        NavButton("Messages", destination: MessagesViewController(), style: .push)
                     ]
                 }
                 .didSelectHandler({ (view) in
