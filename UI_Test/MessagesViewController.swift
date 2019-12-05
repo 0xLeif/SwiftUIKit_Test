@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import SwiftUIKit
 
 class MessagesViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.embed {
+            Table {
+                [
 
         // Do any additional setup after loading the view.
     }
@@ -27,4 +32,8 @@ class MessagesViewController: UIViewController {
     }
     */
 
+                ]
+            }
+        }
+    }
 }
