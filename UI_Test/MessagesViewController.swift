@@ -17,21 +17,75 @@ class MessagesViewController: UIViewController {
         view.embed {
             Table {
                 [
+                    Button("Alert") {
+                        Navigate.shared.alert(title: "Alert!",
+                                              message: "Panic",
+                                              withActions: [.cancel],
+                                              secondsToPersist: 2)
+                    },
+                    Button("Toast.error") {
+                        Navigate.shared.toast(style: .error) {
+                            Label("""
+Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
 
-        // Do any additional setup after loading the view.
-    }
-    
+Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini
+""")
+                                .configure { $0.numberOfLines = 10 }
+                                .padding(8)
+                        }
+                    },
+                    Button("Toast.warning") {
+                        Navigate.shared.toast(style: .warning) {
+                            Label("""
+Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
 
-    /*
-    // MARK: - Navigation
+Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini
+""")
+                                .padding(8)
+                        }
+                    },
+                    Button("Toast.success") {
+                        Navigate.shared.toast(style: .success, pinToTop: false) {
+                            Label("""
+                                Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+                                Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini
+                                """)
+                                .configure { $0.numberOfLines = 10 }
+                                .padding(8)
+                        }
+                    },
+                    Button("Toast.info") {
+                        Navigate.shared.toast(style: .info) {
+                            Label("""
+Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
 
+Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini
+""")
+                                .padding(8)
+                        }
+                    },
+                    Button("Toast.debug") {
+                        Navigate.shared.toast(style: .debug) {
+                            Label("""
+Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+
+Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini
+""")
+                                .padding(8)
+                        }
+                    },
+                    Button("Toast.custom") {
+                        Navigate.shared.toast(style: .custom) {
+                            Label("""
+                                Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+
+                                Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini
+                                """)
+                                .configure { $0.numberOfLines = 10 }
+                                .padding(8)
+                        }
+                    },
                 ]
             }
         }
