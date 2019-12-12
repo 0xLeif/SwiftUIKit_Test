@@ -360,7 +360,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zmeriksen/SwiftUIKit.git";
 			requirement = {
-				branch = "features/AlertsAndMore❗️";
+				branch = feature/AttributedString;
 				kind = branch;
 			};
 		};

@@ -51,8 +51,7 @@ class ViewController: UIViewController {
     var mainView: UIView {
         VStack {
             [
-                View(backgroundColor: .lightGray) { self.headerView }
-                    .padding()
+                View(withPadding: 8, backgroundColor: .lightGray) { self.headerView }
                     .layer { $0.cornerRadius = 16 },
                 Spacer(height: 4),
                 HStack { [Label("Body"), Spacer(), Label.caption1("Details")] },
@@ -79,7 +78,11 @@ class ViewController: UIViewController {
                 
                 NavButton("Go here", destination: UIViewController {
                     View(backgroundColor: .blue) {
-                        Label("Hello World")
+                        Label(AttributedString(string: "Hello World", attributes: StringAttributes {
+                            [
+                                .font: UIFont.boldSystemFont(ofSize: 16)
+                            ]
+                        }))
                     }
                     
                 }, style: .push, titleColor: .blue),
@@ -89,7 +92,9 @@ class ViewController: UIViewController {
                 
                 Table(defaultCellHeight: 45) {
                     [
-                        Label("Cell One"),
+                        Label("Cell one")
+                            .configure { $0.backgroundColor = .lightGray }
+                            .hideIfBlank(),
                         Label("Cell Two"),
                         HStack {
                             [
