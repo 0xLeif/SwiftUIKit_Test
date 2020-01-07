@@ -368,7 +368,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zmeriksen/SwiftUIKit.git";
 			requirement = {
-				branch = develop;
+				branch = AddQuickModifers;
 				kind = branch;
 			};
 		};

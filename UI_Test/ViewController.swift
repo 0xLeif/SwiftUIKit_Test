@@ -26,10 +26,11 @@ class ViewController: UIViewController {
                 Button("Hello Tap Me!", titleColor: .systemBlue, backgroundColor: .systemYellow) {
                     print("Hello You Tapped me!")
                 }
+                .corner(radius: 8)
                 .layer {
                     $0.borderWidth = 3
                     $0.borderColor = UIColor.systemBlue.cgColor
-                    $0.cornerRadius = 6
+                    
                 }
                 .accessibility(label: "Tap this button!"),
                 
@@ -51,10 +52,19 @@ class ViewController: UIViewController {
     var mainView: UIView {
         VStack {
             [
-                View(withPadding: 8, backgroundColor: .lightGray) { self.headerView }
-                    .layer { $0.cornerRadius = 16 },
+                View(withPadding: 8) { self.headerView }
+                    .background(color: .lightGray)
+                    .corner(radius: 16),
                 Spacer(height: 4),
-                HStack { [Label("Body"), Spacer(), Label.caption1("Details")] },
+                HStack {
+                    [
+                        Label("Body")
+                            .text(alignment: .center)
+                            .text(color: .purple),
+                        Spacer(),
+                        Label.caption1("Details")
+                    ]
+                },
                 Spacer(),
                 
                 Button("Show", titleColor: .magenta) {
