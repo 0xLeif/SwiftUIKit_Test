@@ -35,6 +35,6 @@ fragment float4 fragment_main_test() {
     return float4(1, 1, 0, 1);
 }
 
-fragment float4 fragment_main_change(VertexOut in [[stage_in]]) {
-    return float4(in.normal, 1);
-}
+//fragment float4 fragment_main_change(VertexOut in [[stage_in]]) {
+//    return float4(in.normal, 1);
+//}
