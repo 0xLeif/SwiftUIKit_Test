@@ -5,8 +5,8 @@
         "package": "SwiftUIKit",
         "repositoryURL": "https://github.com/zmeriksen/SwiftUIKit.git",
         "state": {
-          "branch": "AddQuickModifers",
-          "revision": "11129d35e9fef443ff48c86ac93c6331c10c9fa2",
+          "branch": "develop",
+          "revision": "749631e66444242f966fb035275d1018aa7d5dae",
           "version": null
         }
       }
