@@ -10,23 +10,6 @@ import UIKit
 import MetalKit
 import SwiftUIKit
 
-
-class MetalView: MTKView {
-    private var renderer: Renderer
-    
-    init(renderer: Renderer) {
-        self.renderer = renderer
-        
-        super.init(frame: .zero, device: renderer.device)
-        
-        self.renderer.load(metalView: self)
-    }
-    
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 class MetalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,44 +17,24 @@ class MetalViewController: UIViewController {
         Navigate.shared.configure(controller: navigationController)
         
         view.embed {
-            ScrollView {
-            VStack(withSpacing: 5, padding: 0, alignment: .fill, distribution: .fillProportionally) {
-                     [
-                        Button("Triangle", titleColor: .systemBlue, backgroundColor: .systemGray) {
-                            Navigate.shared.go(UIViewController {
-                                View {
-                                    MetalView(renderer:
-                                        CustomRenderer()
-                                        .vertex { "vertex_main_moving" }
-                                        .fragment { "fragment_main" }
-                                        .mesh { device in Primitive.makeCube(device: device, size: 1) }
-                                        .clear { MTLClearColor(red: 1, green: 0, blue: 1, alpha: 1) }
-                                    )
-                                }
-                            }, style: .push)
-                        },
-                        Button("Cube", titleColor: .systemBlue, backgroundColor: .systemGray) {
-                            Navigate.shared.go(UIViewController {
-                                View {
-                                    MetalView(renderer: MeshRenderer())
-                                }
-                            }, style: .push)
-                        },
-                        Button("Triangle3", titleColor: .systemBlue, backgroundColor: .systemGray) {
-                            Navigate.shared.go(UIViewController {
-                                View {
-                                    MetalView(renderer: ColorChangeRenderer())
-                                }
-                            }, style: .push)
-                        }
-                    ]
-            }
-            .frame(height: 1000, width: Float(self.view.bounds.width))
-            }
+           ScrollView {
+               VStack(distribution: .fillEqually) {
+                   [
+                       MetalView(renderer: TriangleRenderer()),
+                       MetalView(renderer: MeshRenderer()),
+                       MetalView(renderer: CustomRenderer()
+                           .clear { .init(red: 0, green: 1, blue: 0.5, alpha: 1) }
+                           .vertex { "vertex_main_moving" }
+                           .fragment { "fragment_main_test" }
+                       ),
+                       MetalView(renderer: CustomRenderer()
+                           .compute { "compute" }
+                       )
+                   ]
+               }
+               .frame(height: 1000, width: Float(self.view.bounds.width))
+           }
         }
-        
-                
-        
                 
     }
     
