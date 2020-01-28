@@ -148,8 +148,193 @@ class ViewController: UIViewController {
         
         view.embed {
             SafeAreaView {
-                mainView
+//                Image(URL(string: "https://cdn1-www.dogtime.com/assets/uploads/2011/03/puppy-development.jpg")!)
+//                    .embed {
+                        BlurView(style: .extraLight) {
+                            Button("Something", {
+                                
+                                Permission.photos.request() { value in
+                                    print(value)
+                                }
+                               /*
+                                 PhotoLibrary
+                                 Camera
+                                 LocationWhenInUse
+                                 Calendar
+                                 LocationAlways
+                                 Microphone
+                                 Bluetooth
+                                 PhotoLibraryAdd
+                                 Contacts
+                                 LocationAlwaysAndWhenInUse
+                                 Health
+                                 */
+                            })
+                        }
+//                }
             }
         }
+    }
+}
+
+import AVKit
+import Photos
+import MediaPlayer
+
+enum Permission: String {
+    case camera = "NSCameraUsageDescription"
+    case photos = "NSPhotoLibraryUsageDescription"
+    // TODO: Left
+    case addPhotos = "NSPhotoLibraryAddUsageDescription"
+    case locationAlways = "NSLocationAlwaysUsageDescription"
+    case locationWhenInUse = "NSLocationWhenInUseUsageDescription"
+    case contacts = "NSContactsUsageDescription"
+    case calendar = "NSCalendarsUsageDescription"
+    case reminders = "NSRemindersUsageDescription"
+    case healthShare = "NSHealthShareUsageDescription"
+    case healthUpdate = "NSHealthUpdateUsageDescription"
+    case nfcReader = "NFCReaderUsageDescription"
+    case bluetooth = "NSBluetoothPeripheralUsageDescription"
+    case microphone = "NSMicrophoneUsageDescription"
+    case siri = "NSSiriUsageDescription"
+    case speechRecognition = "NSSpeechRecognitionUsageDescription"
+    case motion = "NSMotionUsageDescription"
+    case appleMusic = "NSAppleMusicUsageDescription"
+    case faceID = "NSFaceIDUsageDescription"
+    
+    func request(completionHandler: @escaping (Bool) -> Void = { _ in }) {
+        guard let _ = Bundle.main.object(forInfoDictionaryKey: rawValue) else {
+            Navigate.shared.toast(style: .error) {
+                Label("Missing: \(self.rawValue) from Info.plist")
+                    .number(ofLines: 3)
+            }
+            return
+        }
+
+        switch self {
+        case .camera:
+            requestCamera(completionHandler: completionHandler)
+        case .photos:
+            requestPhotos(completionHandler: completionHandler)
+        default:
+            print("TODO: \(rawValue)")
+        }
+    }
+
+    // Camera
+    func requestCamera(completionHandler: @escaping (Bool) -> Void) {
+        AVCaptureDevice.requestAccess(for: .video, completionHandler: completionHandler)
+    }
+    
+    // Photos
+    func requestPhotos(completionHandler: @escaping (Bool) -> Void) {
+        if PHPhotoLibrary.authorizationStatus() == .notDetermined {
+            PHPhotoLibrary.requestAuthorization { (status) in
+                completionHandler(status == .authorized)
+            }
+        }
+    }
+    
+    func requestLibrary(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestLocationAlways(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+    func requestLocationWhenInUse(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+    func requestContacts(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+    func requestCalendar(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+    func requestReminders(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+    func requestHealthShare(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+    func requestHealthUpdate(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+    func requestNFCReader(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+    func requestBluetooth(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+    func requestMicrophone(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+    func requestSiri(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+    func requestSpeechRecognition(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+    func requestMotion(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+    func requestAppleMusic(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+    func requestFaceID(completionHandler: @escaping (Bool) -> Void) {
+    
+    }
+}
+
+
+
+
+
+import UIKit
+
+@available(iOS 9.0, *)
+public class EffectView: UIVisualEffectView {
+    public init(for effect: UIVisualEffect? = nil, closure: () -> UIView) {
+        super.init(effect: effect)
+        
+        contentView.embed {
+            closure()
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+@available(iOS 9.0, *)
+public class BlurView: UIVisualEffectView {
+    public init(style blur: UIBlurEffect.Style = UIBlurEffect.Style.regular, closure: () -> UIView) {
+        super.init(effect: UIBlurEffect(style: blur))
+        
+        contentView.embed {
+            closure()
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+@available(iOS 9.0, *)
+public class VibrancyView: UIVisualEffectView {
+    public init(blurStyle blur: UIBlurEffect.Style = UIBlurEffect.Style.regular,
+                vibrancyStyle vibrancy: UIVibrancyEffectStyle = .fill,
+                closure: () -> UIView) {
+        super.init(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: blur),
+                                            style: vibrancy))
+        
+        contentView.embed {
+            closure()
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
