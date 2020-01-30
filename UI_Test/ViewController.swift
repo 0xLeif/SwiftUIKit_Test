@@ -8,6 +8,48 @@
 import UIKit
 import SwiftUIKit
 
+
+import WebKit
+
+@available(iOS 9.0, *)
+public class WebView: WKWebView {
+    public init() {
+        super.init(frame: .zero, configuration: WKWebViewConfiguration())
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+public extension WebView {
+    func launch(url: URL) -> Self {
+        load(URLRequest(url: url,
+                        cachePolicy: .useProtocolCachePolicy,
+                        timeoutInterval: 10))
+        
+        return self
+    }
+    
+    func launch(html: String) -> Self {
+        loadHTMLString(html, baseURL: nil)
+        
+        return self
+    }
+    
+    func launch(fileURL url: URL, allowingReadAccessTo: URL) -> Self {
+        loadFileURL(url, allowingReadAccessTo: allowingReadAccessTo)
+        
+        return self
+    }
+    
+    func launch(data: Data, mimeType: String, characterEncodingName: String, baseURL: URL) -> Self {
+        load(data, mimeType: mimeType, characterEncodingName: characterEncodingName, baseURL: baseURL)
+        
+        return self
+    }
+}
+
 class ViewController: UIViewController {
     
     var headerView: UIView {
