@@ -60,6 +60,7 @@ class ViewController: UIViewController {
                         Label("Hello World"),
                         Divider(.horizontal)
                     ]
+                    
                 },
                 Spacer(),
                 Divider(.horizontal),
@@ -68,18 +69,22 @@ class ViewController: UIViewController {
                 Button("Hello Tap Me!", titleColor: .systemBlue, backgroundColor: .systemYellow) {
                     print("Hello You Tapped me!")
                 }
-                .layer {
-                    $0.borderWidth = 3
-                    $0.borderColor = UIColor.systemBlue.cgColor
-                    $0.cornerRadius = 6
+                .corner(radius: 8)
+                .layer { layer in
+                    layer.borderWidth = 3
+                    layer.borderColor = UIColor.systemBlue.cgColor
+                    
                 }
                 .accessibility(label: "Tap this button!"),
                 
                 HStack(withSpacing: 8) {
                     [
                         Label("Are you new?"),
+                        
                         Divider(.vertical),
+                        
                         Spacer(),
+                        
                         Switch(isOn: true) {
                             print("Toogle is \($0)")
                         }
@@ -93,10 +98,20 @@ class ViewController: UIViewController {
     var mainView: UIView {
         VStack {
             [
-                View(withPadding: 8, backgroundColor: .lightGray) { self.headerView }
-                    .layer { $0.cornerRadius = 16 },
+                View(withPadding: 8) { self.headerView }
+                    .background(color: .lightGray)
+                    .corner(radius: 16),
                 Spacer(height: 4),
-                HStack { [Label("Body"), Spacer(), Label.caption1("Details")] },
+                HStack {
+                    [
+                        Label("Body")
+                            .text(alignment: .center)
+                            .text(color: .purple),
+                        Spacer(),
+                        Label.caption1("Details")
+                    ]
+                    
+                },
                 Spacer(),
                 
                 Button("Show", titleColor: .magenta) {
@@ -105,10 +120,9 @@ class ViewController: UIViewController {
                     Navigate.shared.go(UIViewController {
                         VStack(distribution: .fillEqually) {
                             [
-                                Image(URL(string: "https://i.imgur.com/sy9p4.jpg")!)
-                                    .contentMode(.scaleAspectFit),
                                 Image("dog")
                             ]
+                            
                         }
                     }, style: .push)
                 },
@@ -159,7 +173,8 @@ class ViewController: UIViewController {
                         .inputHandler { (value) in
                             print("New Value!: \(value)")
                         },
-                        NavButton("Messages", destination: MessagesViewController(), style: .push)
+                        NavButton("Messages", destination: MessagesViewController(), style: .push),
+                        //                        NavButton("Metal", destination: MetalViewController(), style: .push)
                     ]
                 }
                 .didSelectHandler({ (view) in
@@ -173,24 +188,187 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         Navigate.shared.configure(controller: navigationController)
+            .set(title: "Hello SwiftUIKit")
+            .setRight(barButton: BarButton {
+                Button({
+                    print("Tapped the barbutton")
+                }) {
+                    Label("Button 0")
+                }
+            })
         
-        navigationItem.titleView = Image(.blue)
-            .frame(height: 32, width: 32)
         
         view.embed {
             SafeAreaView {
-                Table(defaultCellHeight: Float(UITableView.automaticDimension)) {
+                Table(defaultCellHeight: 60) {
                     [
-                        WebView()
-                            .launch(html: """
-<meta name='viewport' content='initial-scale=1.0'/>
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ever press Cmd-A in a native app and every text field in the entire window gets highlighted? Nope, me neither.<br><br>Details matter. Native platforms FTW. <a href="https://t.co/7NmIvXpVnJ">pic.twitter.com/7NmIvXpVnJ</a></p>&mdash; Daniel Jalkut (@danielpunkass) <a href="https://twitter.com/danielpunkass/status/1192686379379122176?ref_src=twsrc%5Etfw">November 8, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-""")
+                        Button("Say Hello") {
+                            print("Hello World!")
+                        },
+                        
+                        HStack(withSpacing: 8) {
+                            [
+                                Label("Name"),
+                                
+                                Divider(.vertical),
+                                
+                                Spacer(),
+                                
+                                Field(value: "SwiftUIKit",
+                                      placeholder: "Some Name",
+                                      keyboardType: .default)
+                                    .inputHandler { print("New Name: \($0)") }
+                            ]
+                        },
+                        
+                        Label.callout("This is some callout text!"),
+                        
+                        ZStack {
+                            [
+                                Image(.blue)
+                                    .frame(height: 60, width: 60)
+                                    .offset(x: 100)
+                            ]
+                        },
+                        
+                        NavButton(destination: UIViewController {
+                            View(backgroundColor: .white) {
+                                LoadingImage(URL(string: "https://cdn11.bigcommerce.com/s-oe2q4reh/images/stencil/2048x2048/products/832/1401/Beige_Pekingese_Puppy__21677.1568609759.jpg")!)
+                                    .contentMode(.scaleAspectFit)
+                            }
+                        }, style: .push) {
+                            Label("Go see a puppy")
+                        },
+                        
+                        Button("Show an Alert") {
+                            Navigate.shared.alert(title: "Hello this is an Alert!",
+                                                  message: "Just a test...",
+                                                  secondsToPersist: 3)
+                        },
+                        
+                        Button("Show an Alert w/ cancel") {
+                            Navigate.shared.alert(title: "Hello World",
+                                                  message: "This is an alert",
+                                                  withActions: [.cancel],
+                                                  secondsToPersist: 3)
+                        },
+                        
+                        Button("Show a Toast Message") {
+                            Navigate.shared.toast(style: .error, pinToTop: true, secondsToPersist: 4) {
+                                Label("This is a test error message!")
+                            }
+                        }
                     ]
-                    
                 }
-                //                mainView
             }
         }
+    }
+}
+
+import AVKit
+import Photos
+import MediaPlayer
+
+enum Permission: String {
+    case camera = "NSCameraUsageDescription"
+    case photos = "NSPhotoLibraryUsageDescription"
+    // TODO: Left
+    case addPhotos = "NSPhotoLibraryAddUsageDescription"
+    case locationAlways = "NSLocationAlwaysUsageDescription"
+    case locationWhenInUse = "NSLocationWhenInUseUsageDescription"
+    case contacts = "NSContactsUsageDescription"
+    case calendar = "NSCalendarsUsageDescription"
+    case reminders = "NSRemindersUsageDescription"
+    case healthShare = "NSHealthShareUsageDescription"
+    case healthUpdate = "NSHealthUpdateUsageDescription"
+    case nfcReader = "NFCReaderUsageDescription"
+    case bluetooth = "NSBluetoothPeripheralUsageDescription"
+    case microphone = "NSMicrophoneUsageDescription"
+    case siri = "NSSiriUsageDescription"
+    case speechRecognition = "NSSpeechRecognitionUsageDescription"
+    case motion = "NSMotionUsageDescription"
+    case appleMusic = "NSAppleMusicUsageDescription"
+    case faceID = "NSFaceIDUsageDescription"
+    
+    func request(completionHandler: @escaping (Bool) -> Void = { _ in }) {
+        guard let _ = Bundle.main.object(forInfoDictionaryKey: rawValue) else {
+            Navigate.shared.toast(style: .error) {
+                Label("Missing: \(self.rawValue) from Info.plist")
+                    .number(ofLines: 3)
+            }
+            return
+        }
+        
+        switch self {
+        case .camera:
+            requestCamera(completionHandler: completionHandler)
+        case .photos:
+            requestPhotos(completionHandler: completionHandler)
+        default:
+            print("TODO: \(rawValue)")
+        }
+    }
+    
+    // Camera
+    func requestCamera(completionHandler: @escaping (Bool) -> Void) {
+        AVCaptureDevice.requestAccess(for: .video, completionHandler: completionHandler)
+    }
+    
+    // Photos
+    func requestPhotos(completionHandler: @escaping (Bool) -> Void) {
+        if PHPhotoLibrary.authorizationStatus() == .notDetermined {
+            PHPhotoLibrary.requestAuthorization { (status) in
+                completionHandler(status == .authorized)
+            }
+        }
+    }
+    
+    func requestLibrary(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestLocationAlways(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestLocationWhenInUse(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestContacts(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestCalendar(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestReminders(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestHealthShare(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestHealthUpdate(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestNFCReader(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestBluetooth(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestMicrophone(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestSiri(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestSpeechRecognition(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestMotion(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestAppleMusic(completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+    func requestFaceID(completionHandler: @escaping (Bool) -> Void) {
+        
     }
 }

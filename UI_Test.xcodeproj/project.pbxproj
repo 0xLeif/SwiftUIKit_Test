@@ -13,9 +13,11 @@
 		0080EADF2369F83B008B2238 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0080EADD2369F83B008B2238 /* Main.storyboard */; };
 		0080EAE12369F83E008B2238 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0080EAE02369F83E008B2238 /* Assets.xcassets */; };
 		0080EAE42369F83E008B2238 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0080EAE22369F83E008B2238 /* LaunchScreen.storyboard */; };
+		2918155523C40C530001A80B /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918155423C40C530001A80B /* MetalViewController.swift */; };
 		29313856237117400046AAE0 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29313855237117400046AAE0 /* TestViewController.swift */; };
 		29666F9A239887AD0094C21A /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29666F99239887AD0094C21A /* MessagesViewController.swift */; };
 		29C0CBF7236A5F5800FC35C5 /* SwiftUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 29C0CBF6236A5F5800FC35C5 /* SwiftUIKit */; };
+		29D27E0823D4CA0B00CA4B69 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 29D27E0723D4CA0B00CA4B69 /* Shaders.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,8 +29,10 @@
 		0080EAE02369F83E008B2238 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0080EAE32369F83E008B2238 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0080EAE52369F83E008B2238 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2918155423C40C530001A80B /* MetalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalViewController.swift; sourceTree = "<group>"; };
 		29313855237117400046AAE0 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		29666F99239887AD0094C21A /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		29D27E0723D4CA0B00CA4B69 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		29FF20BE23A2FDE400A6E9D2 /* UI_Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UI_Test.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +73,8 @@
 				0080EADB2369F83B008B2238 /* ViewController.swift */,
 				29313855237117400046AAE0 /* TestViewController.swift */,
 				29666F99239887AD0094C21A /* MessagesViewController.swift */,
+				2918155423C40C530001A80B /* MetalViewController.swift */,
+				29D27E0723D4CA0B00CA4B69 /* Shaders.metal */,
 				0080EADD2369F83B008B2238 /* Main.storyboard */,
 				0080EAE02369F83E008B2238 /* Assets.xcassets */,
 				0080EAE22369F83E008B2238 /* LaunchScreen.storyboard */,
@@ -155,7 +161,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				29666F9A239887AD0094C21A /* MessagesViewController.swift in Sources */,
+				29D27E0823D4CA0B00CA4B69 /* Shaders.metal in Sources */,
 				0080EADC2369F83B008B2238 /* ViewController.swift in Sources */,
+				2918155523C40C530001A80B /* MetalViewController.swift in Sources */,
 				0080EAD82369F83B008B2238 /* AppDelegate.swift in Sources */,
 				29313856237117400046AAE0 /* TestViewController.swift in Sources */,
 				0080EADA2369F83B008B2238 /* SceneDelegate.swift in Sources */,
@@ -368,7 +376,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zmeriksen/SwiftUIKit.git";
 			requirement = {
-				branch = develop;
+				branch = release/v1.0.0;
 				kind = branch;
 			};
 		};
