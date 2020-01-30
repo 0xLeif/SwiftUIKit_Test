@@ -18,6 +18,7 @@ class ViewController: UIViewController {
                         Label("Hello World"),
                         Divider(.horizontal)
                     ]
+                    
                 },
                 Spacer(),
                 Divider(.horizontal),
@@ -27,9 +28,9 @@ class ViewController: UIViewController {
                     print("Hello You Tapped me!")
                 }
                 .corner(radius: 8)
-                .layer {
-                    $0.borderWidth = 3
-                    $0.borderColor = UIColor.systemBlue.cgColor
+                .layer { layer in
+                    layer.borderWidth = 3
+                    layer.borderColor = UIColor.systemBlue.cgColor
                     
                 }
                 .accessibility(label: "Tap this button!"),
@@ -37,8 +38,11 @@ class ViewController: UIViewController {
                 HStack(withSpacing: 8) {
                     [
                         Label("Are you new?"),
+                        
                         Divider(.vertical),
+                        
                         Spacer(),
+                        
                         Switch(isOn: true) {
                             print("Toogle is \($0)")
                         }
@@ -64,6 +68,7 @@ class ViewController: UIViewController {
                         Spacer(),
                         Label.caption1("Details")
                     ]
+                    
                 },
                 Spacer(),
                 
@@ -73,10 +78,9 @@ class ViewController: UIViewController {
                     Navigate.shared.go(UIViewController {
                         VStack(distribution: .fillEqually) {
                             [
-                                Image(URL(string: "https://i.imgur.com/sy9p4.jpg")!)
-                                    .contentMode(.scaleAspectFit),
                                 Image("dog")
                             ]
+                            
                         }
                     }, style: .push)
                 },
@@ -128,7 +132,7 @@ class ViewController: UIViewController {
                             print("New Value!: \(value)")
                         },
                         NavButton("Messages", destination: MessagesViewController(), style: .push),
-                        NavButton("Metal", destination: MetalViewController(), style: .push)
+                        //                        NavButton("Metal", destination: MetalViewController(), style: .push)
                     ]
                 }
                 .didSelectHandler({ (view) in
@@ -142,36 +146,78 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         Navigate.shared.configure(controller: navigationController)
+            .set(title: "Hello SwiftUIKit")
+            .setRight(barButton: BarButton {
+                Button({
+                    print("Tapped the barbutton")
+                }) {
+                    Label("Button 0")
+                }
+            })
         
-        navigationItem.titleView = Image(.blue)
-            .frame(height: 32, width: 32)
         
         view.embed {
             SafeAreaView {
-//                Image(URL(string: "https://cdn1-www.dogtime.com/assets/uploads/2011/03/puppy-development.jpg")!)
-//                    .embed {
-                        BlurView(style: .extraLight) {
-                            Button("Something", {
+                Table(defaultCellHeight: 60) {
+                    [
+                        Button("Say Hello") {
+                            print("Hello World!")
+                        },
+                        
+                        HStack(withSpacing: 8) {
+                            [
+                                Label("Name"),
                                 
-                                Permission.photos.request() { value in
-                                    print(value)
-                                }
-                               /*
-                                 PhotoLibrary
-                                 Camera
-                                 LocationWhenInUse
-                                 Calendar
-                                 LocationAlways
-                                 Microphone
-                                 Bluetooth
-                                 PhotoLibraryAdd
-                                 Contacts
-                                 LocationAlwaysAndWhenInUse
-                                 Health
-                                 */
-                            })
+                                Divider(.vertical),
+                                
+                                Spacer(),
+                                
+                                Field(value: "SwiftUIKit",
+                                      placeholder: "Some Name",
+                                      keyboardType: .default)
+                                    .inputHandler { print("New Name: \($0)") }
+                            ]
+                        },
+                        
+                        Label.callout("This is some callout text!"),
+                        
+                        ZStack {
+                            [
+                                Image(.blue)
+                                    .frame(height: 60, width: 60)
+                                    .offset(x: 100)
+                            ]
+                        },
+                        
+                        NavButton(destination: UIViewController {
+                            View(backgroundColor: .white) {
+                                LoadingImage(URL(string: "https://cdn11.bigcommerce.com/s-oe2q4reh/images/stencil/2048x2048/products/832/1401/Beige_Pekingese_Puppy__21677.1568609759.jpg")!)
+                                    .contentMode(.scaleAspectFit)
+                            }
+                        }, style: .push) {
+                            Label("Go see a puppy")
+                        },
+                        
+                        Button("Show an Alert") {
+                            Navigate.shared.alert(title: "Hello this is an Alert!",
+                                                  message: "Just a test...",
+                                                  secondsToPersist: 3)
+                        },
+                        
+                        Button("Show an Alert w/ cancel") {
+                            Navigate.shared.alert(title: "Hello World",
+                                                  message: "This is an alert",
+                                                  withActions: [.cancel],
+                                                  secondsToPersist: 3)
+                        },
+                        
+                        Button("Show a Toast Message") {
+                            Navigate.shared.toast(style: .error, pinToTop: true, secondsToPersist: 4) {
+                                Label("This is a test error message!")
+                            }
                         }
-//                }
+                    ]
+                }
             }
         }
     }
@@ -210,7 +256,7 @@ enum Permission: String {
             }
             return
         }
-
+        
         switch self {
         case .camera:
             requestCamera(completionHandler: completionHandler)
@@ -220,7 +266,7 @@ enum Permission: String {
             print("TODO: \(rawValue)")
         }
     }
-
+    
     // Camera
     func requestCamera(completionHandler: @escaping (Bool) -> Void) {
         AVCaptureDevice.requestAccess(for: .video, completionHandler: completionHandler)
@@ -239,102 +285,48 @@ enum Permission: String {
         
     }
     func requestLocationAlways(completionHandler: @escaping (Bool) -> Void) {
-    
+        
     }
     func requestLocationWhenInUse(completionHandler: @escaping (Bool) -> Void) {
-    
+        
     }
     func requestContacts(completionHandler: @escaping (Bool) -> Void) {
-    
+        
     }
     func requestCalendar(completionHandler: @escaping (Bool) -> Void) {
-    
+        
     }
     func requestReminders(completionHandler: @escaping (Bool) -> Void) {
-    
+        
     }
     func requestHealthShare(completionHandler: @escaping (Bool) -> Void) {
-    
+        
     }
     func requestHealthUpdate(completionHandler: @escaping (Bool) -> Void) {
-    
+        
     }
     func requestNFCReader(completionHandler: @escaping (Bool) -> Void) {
-    
+        
     }
     func requestBluetooth(completionHandler: @escaping (Bool) -> Void) {
-    
+        
     }
     func requestMicrophone(completionHandler: @escaping (Bool) -> Void) {
-    
+        
     }
     func requestSiri(completionHandler: @escaping (Bool) -> Void) {
-    
+        
     }
     func requestSpeechRecognition(completionHandler: @escaping (Bool) -> Void) {
-    
+        
     }
     func requestMotion(completionHandler: @escaping (Bool) -> Void) {
-    
+        
     }
     func requestAppleMusic(completionHandler: @escaping (Bool) -> Void) {
-    
+        
     }
     func requestFaceID(completionHandler: @escaping (Bool) -> Void) {
-    
-    }
-}
-
-
-
-
-
-import UIKit
-
-@available(iOS 9.0, *)
-public class EffectView: UIVisualEffectView {
-    public init(for effect: UIVisualEffect? = nil, closure: () -> UIView) {
-        super.init(effect: effect)
         
-        contentView.embed {
-            closure()
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-@available(iOS 9.0, *)
-public class BlurView: UIVisualEffectView {
-    public init(style blur: UIBlurEffect.Style = UIBlurEffect.Style.regular, closure: () -> UIView) {
-        super.init(effect: UIBlurEffect(style: blur))
-        
-        contentView.embed {
-            closure()
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-@available(iOS 9.0, *)
-public class VibrancyView: UIVisualEffectView {
-    public init(blurStyle blur: UIBlurEffect.Style = UIBlurEffect.Style.regular,
-                vibrancyStyle vibrancy: UIVibrancyEffectStyle = .fill,
-                closure: () -> UIView) {
-        super.init(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: blur),
-                                            style: vibrancy))
-        
-        contentView.embed {
-            closure()
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
